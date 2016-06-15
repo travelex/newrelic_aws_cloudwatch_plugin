@@ -125,6 +125,7 @@ module NewRelicAWS
         request.deliver
 
         seconds_to_delay = poll_cycle_period - (Time.now - start_time)
+        NewRelic::PlatformLogger.debug("Sleeping for #{seconds_to_delay} in poll_cycle")
         sleep(seconds_to_delay) if seconds_to_delay > 0
       end
     end
