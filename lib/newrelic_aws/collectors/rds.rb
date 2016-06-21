@@ -1,8 +1,8 @@
 module NewRelicAWS
   module Collectors
     class RDS < Base
-      def initialize(access_key, secret_key, region, options)
-        super(access_key, secret_key, region, options)
+      def initialize(access_key, secret_key, region, options, poll_interval)
+        super(access_key, secret_key, region, options, poll_interval)
         @instance_ids = options[:instance_identifiers]
       end
 

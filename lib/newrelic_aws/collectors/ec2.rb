@@ -1,8 +1,8 @@
 module NewRelicAWS
   module Collectors
     class EC2 < Base
-      def initialize(access_key, secret_key, region, options)
-        super(access_key, secret_key, region, options)
+      def initialize(access_key, secret_key, region, options, poll_interval)
+        super(access_key, secret_key, region, options, poll_interval)
         @ec2 = AWS::EC2.new(
           :access_key_id => @aws_access_key,
           :secret_access_key => @aws_secret_key,
