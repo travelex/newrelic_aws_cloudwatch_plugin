@@ -111,7 +111,7 @@ module NewRelicAWS
       def poll_cycle
         request = @context.get_request
         start_time = Time.now
-        poll_cycle_period = (agent_options["newrelic"]["poll"] || 60).to_i
+        #poll_cycle_period = (agent_options["newrelic"]["poll"] || 60).to_i
         NewRelic::PlatformLogger.debug("############## start poll_cycle ############")
         metric_count = 0
         @collectors.each do |collector|
@@ -125,9 +125,9 @@ module NewRelicAWS
         NewRelic::PlatformLogger.debug("############## end poll_cycle ############")
         request.deliver
 
-        seconds_to_delay = poll_cycle_period - (Time.now - start_time)
-        NewRelic::PlatformLogger.debug("Sleeping for #{seconds_to_delay} in poll_cycle")
-        sleep(seconds_to_delay) if seconds_to_delay > 0
+        #seconds_to_delay = poll_cycle_period - (Time.now - start_time)
+        #NewRelic::PlatformLogger.debug("Sleeping for #{seconds_to_delay} in poll_cycle")
+        #sleep(seconds_to_delay) if seconds_to_delay > 0
       end
     end
   end
