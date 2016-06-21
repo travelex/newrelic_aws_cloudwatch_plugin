@@ -1,7 +1,7 @@
 module NewRelicAWS
   module Collectors
     class Base
-      def initialize(access_key, secret_key, region, options)
+      def initialize(access_key, secret_key, region, options, poll_interval)
         @aws_access_key = access_key
         @aws_secret_key = secret_key
         @aws_region = region
@@ -11,10 +11,16 @@ module NewRelicAWS
           :region            => @aws_region
         )
         @cloudwatch_delay = options[:cloudwatch_delay] || 60
+        @poll_interval = poll_interval
       end
 
       def get_data_point(options)
         options[:period]     ||= 60
+
+        # make sure that all metrics for period are collected if we poll infrequently
+        if options[:period] < @poll_interval
+          options[:period] = @poll_interval
+        end
         options[:start_time] ||= (Time.now.utc - (@cloudwatch_delay + options[:period])).iso8601
         options[:end_time]   ||= (Time.now.utc - @cloudwatch_delay).iso8601
         options[:dimensions] ||= [options[:dimension]]

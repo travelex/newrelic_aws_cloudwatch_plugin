@@ -99,7 +99,8 @@ module NewRelicAWS
             agent_options["aws"]["access_key"],
             agent_options["aws"]["secret_key"],
             region,
-            agent_options["agents"][agent_name]
+            agent_options["agents"][agent_name],
+            (agent_options["newrelic"]["poll"] || 60).to_i
           )
         end
         @components_collection = Components::Collection.new("com.newrelic.aws.#{agent_name}", NewRelicAWS::VERSION)
